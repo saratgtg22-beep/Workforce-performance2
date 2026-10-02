@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f766e"><title>Attendance</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);--bg:#eef2f4;--c:#fff;--t:#16222b;--m:#64748b;--p:#0f766e;--pt:#fff;--b:#d8e0e5;--d:#c2410c;--s:#e6f4f1}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e1519;--c:#17222a;--t:#e6edf1;--m:#93a4b0;--p:#2dd4bf;--pt:#06201c;--b:#2a3943;--d:#fb923c;--s:#13302c}}
+:root[data-theme=dark]{--bg:#0e1519;--c:#17222a;--t:#e6edf1;--m:#93a4b0;--p:#2dd4bf;--pt:#06201c;--b:#2a3943;--d:#fb923c;--s:#13302c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:15px/1.6 Vazirmatn,Tahoma,sans-serif;padding:8px 10px calc(76px + env(safe-area-inset-bottom,0px))}
+.card{background:var(--c);border:1px solid var(--b);border-radius:12px;padding:12px;margin:0 0 10px}
+h2{font-size:17px;margin:4px 2px 10px}
+button,select,input{font:inherit;color:inherit}
+button{border:1px solid var(--b);background:var(--c);border-radius:8px;padding:7px 10px;cursor:pointer}
+select,input[type=time],input[type=text],input[type=file],textarea{width:100%;border:1px solid var(--b);background:var(--bg);border-radius:8px;padding:7px 8px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.dr{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:6px}
+.nv{display:flex;gap:6px;margin-top:8px}.nv button{flex:1}
+.hd{margin-top:8px;font-weight:700;color:var(--p)}
+.seg{display:flex;gap:6px;margin:10px 0}.seg button{flex:1;padding:6px 2px;font-size:13px}
+button.on{background:var(--p);color:var(--pt);border-color:var(--p)}
+.g2{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;margin:6px 0}
+.g2.two{grid-template-columns:1fr 1fr}
+label{display:block;font-size:13px;color:var(--m)}
+.tot{margin-top:8px;padding:8px 10px;background:var(--s);border-radius:8px;font-weight:700}
+.tot small{display:block;font-weight:400;color:var(--m)}
+.note{background:var(--s);border-radius:8px;padding:5px 10px;font-size:13px;margin-bottom:6px}
+.ghost{width:100%;border-style:dashed;color:var(--p);margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.chips button{padding:4px 10px;border-radius:99px;font-size:13px}
+.del{color:var(--d)}.del.on{background:var(--d);border-color:var(--d);color:#fff}
+.big{font-size:20px;font-weight:700;color:var(--p)}
+.m{color:var(--m);font-size:13px}
+nav{position:fixed;inset:auto 0 0 0;display:flex;background:var(--c);border-top:1px solid var(--b);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;border:0;border-radius:0;padding:12px 4px;background:none;color:var(--m)}
+nav button.on{color:var(--p);background:var(--s);font-weight:700}
+details{margin-top:6px}summary{cursor:pointer;color:var(--p)}
+.ln{display:flex;justify-content:space-between;font-size:13px;padding:2px 0;border-bottom:1px solid var(--b)}
+
+body.lg{padding:0;background:#0c3b3a}
+.lgp{min-height:100dvh;display:flex;flex-direction:column}
+.hero{color:#fff;text-align:center;padding:26px 20px 60px}
+.dial{width:168px;height:168px;display:block;margin:0 auto 10px}
+.hero h1{margin:0;font-size:26px}.hero p{margin:4px 0 0;color:#9fd3cb;font-size:14px}
+.sheet{flex:1;width:100%;max-width:460px;margin:-30px auto 0;background:var(--c);border-radius:28px 28px 0 0;padding:26px 22px calc(26px + env(safe-area-inset-bottom,0px));box-shadow:0 -10px 30px rgba(0,0,0,.2)}
+.sheet h3{margin:0 0 4px;font-size:18px}
+.fld{display:flex;align-items:center;gap:10px;border:1.5px solid var(--b);background:var(--bg);border-radius:14px;padding:0 14px;margin-top:12px}
+.fld:focus-within{border-color:var(--p);box-shadow:0 0 0 3px var(--s)}
+.fld svg{width:20px;height:20px;flex:none;color:var(--m);stroke:currentColor;fill:none;stroke-width:1.8}
+.fld input[type]{border:0;background:none;outline:0;padding:14px 0;flex:1;width:auto;min-width:0}
+.eye{border:0;background:none;color:var(--p);padding:6px;font-size:13px}
+.go{width:100%;margin-top:18px;padding:14px;border:0;border-radius:14px;background:#0f766e;color:#fff;font-weight:700;font-size:16px}
+.err{margin-top:12px;padding:9px 12px;border-radius:10px;background:rgba(194,65,12,.12);color:var(--d);font-size:13px}
+.ft{margin-top:16px;text-align:center;font-size:12px;color:var(--m)}
+@keyframes sw{to{transform:rotate(360deg)}}
+.sec{transform-origin:100px 100px;animation:sw 60s linear infinite}
+@media(prefers-reduced-motion:reduce){.sec{animation:none}}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + env(safe-area-inset-bottom,0px));background:var(--t);color:var(--bg);padding:8px 16px;border-radius:99px;display:none;z-index:9;max-width:90%;font-size:14px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:20;padding:20px}.box{background:var(--c);border-radius:16px;padding:18px;max-width:380px;width:100%}.box p{margin:6px 0 12px}
+.av{width:46px;height:46px;border-radius:50%;background:var(--s);color:var(--p);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;overflow:hidden;flex:none;cursor:pointer}.av img{width:100%;height:100%;object-fit:cover}.av{position:relative}.av input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}.nmw{display:flex;align-items:center;gap:10px;flex:1}
+</style></head><body><div id=toast></div><div id=md class=ov><div class=box id=mb></div></div><div id=top></div><div id=app></div>
+<nav><button id=n0 onclick="T('d')">ثبت روزانه</button><button id=n1 onclick="T('w')">نیروها</button><button id=n2 onclick="T('r')">گزارش</button><button id=n3 onclick="T('b')">پشتیبان</button></nav>
+<script>
+const $=s=>document.getElementById(s),fa=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MN=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+const WD=['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه'];
+/* --- Jalali conversion (jalaali algorithm) --- */
+const div=(a,b)=>~~(a/b),mod=(a,b)=>a-~~(a/b)*b;
+const BR=[-61,9,38,199,426,686,756,818,1111,1181,1210,1635,2060,2097,2192,2262,2324,2394,2456,3178];
+function jc(jy){let gy=jy+621,lj=-14,jp=BR[0],jm,jump,i;for(i=1;i<BR.length;i++){jm=BR[i];jump=jm-jp;if(jy<jm)break;lj+=div(jump,33)*8+div(mod(jump,33),4);jp=jm}
+let n=jy-jp;lj+=div(n,33)*8+div(mod(n,33)+3,4);if(mod(jump,33)===4&&jump-n===4)lj++;
+const lg=div(gy,4)-div((div(gy,100)+1)*3,4)-150,march=20+lj-lg;if(jump-n<6)n=n-jump+div(jump+4,33)*33;
+let leap=mod(mod(n+1,33)-1,4);if(leap===-1)leap=4;return{leap,gy,march}}
+const g2d=(gy,gm,gd)=>{let d=div((gy+div(gm-8,6)+100100)*1461,4)+div(153*mod(gm+9,12)+2,5)+gd-34840408;return d-div(div(gy+100100+div(gm-8,6),100)*3,4)+752};
+function d2g(j){let x=4*j+139361631;x+=div(div(4*j+183187720,146097)*3,4)*4-3908;const i=div(mod(x,1461),4)*5+308;const gm=mod(div(i,153),12)+1;return{gy:div(x,1461)-100100+div(8-gm,6)}}
+const j2d=(jy,jm,jd)=>{const r=jc(jy);return g2d(r.gy,3,r.march)+(jm-1)*31-div(jm,7)*(jm-7)+jd-1};
+function d2j(j){const gy=d2g(j).gy;let jy=gy-621;const r=jc(jy),f=g2d(gy,3,r.march);let k=j-f,jm,jd;
+if(k>=0){if(k<=185)return{jy,jm:1+div(k,31),jd:mod(k,31)+1};k-=186}else{jy--;k+=179;if(r.leap===1)k++}
+return{jy,jm:7+div(k,30),jd:mod(k,30)+1}}
+const ml=(y,m)=>m<=6?31:m<=11?30:(jc(y).leap===0?30:29);
+const wd=j=>(j+2)%7,today=()=>{const n=new Date();return g2d(n.getFullYear(),n.getMonth()+1,n.getDate())};
+const fmt=j=>{const o=d2j(j);return `${WD[wd(j)]} ${fa(o.jd)} ${MN[o.jm-1]} ${fa(o.jy)}`};
+/* --- state --- */
+const USERS={'e12596d6fd9de65efbde76479c50489dbf10955fd8d84327bc9b0e51fdecd216':'a','4a885512fa30254010b7c13e4ce52b55907c1bd15281e95b441eb6187f128eb6':'v'};
+let S={role:null,tab:'d',day:today(),from:0,to:0,w:[],r:{},nw:[]};
+try{const x=JSON.parse(localStorage.getItem('att1')||'{}');S.w=x.w||[];S.r=x.r||{}}catch(e){}
+try{S.role=USERS[localStorage.getItem('att_sess')]||null}catch(e){}
+const save=()=>{try{localStorage.setItem('att1',JSON.stringify({w:S.w,r:S.r}))}catch(e){}};
+(()=>{const o=d2j(today());S.from=j2d(o.jy,o.jm,1);S.to=j2d(o.jy,o.jm,ml(o.jy,o.jm))})();
+const find=id=>S.w.find(x=>x.id==id),nm=id=>find(id)?esc(find(id).n):'—',key=(w,d)=>w+'|'+d;
+const eff=(w,d)=>{const r=S.r[key(w.id,d)];return r?{br:[],...r}:{st:w.off.includes(wd(d))?'off':'work',in:'',out:'',br:[]}};
+const clone=o=>JSON.parse(JSON.stringify(o));
+function upd(id,d,f){if(S.role!='a')return;const r=clone(eff(find(id),d));f(r);S.r[key(id,d)]=r;save();R()}
+/* --- time math (minutes) --- */
+const tm=s=>{if(!s)return null;const[a,b]=s.split(':');return +a*60+ +b};
+const dur=(a,b)=>{a=tm(a);b=tm(b);if(a==null||b==null)return 0;let x=b-a;if(x<0)x+=1440;return x};
+const calc=r=>{if(r.st!='work')return{g:0,b:0,n:0};const g=dur(r.in,r.out),b=Math.min(g,r.br.reduce((s,x)=>s+dur(x[0],x[1]),0));return{g,b,n:g-b}};
+const hm=m=>`${fa(Math.floor(m/60))} ساعت و ${fa(m%60)} دقیقه`;
+/* --- date picker --- */
+function dsel(k){const{jy,jm,jd}=d2j(S[k]);const o=(a,b,v)=>{let s='';for(let i=a;i<=b;i++)s+=`<option value=${i} ${i==v?'selected':''}>${fa(i)}</option>`;return s};
+return `<div class=dr><select onchange="sd('${k}',0,this.value)">${o(1400,1420,jy)}</select><select onchange="sd('${k}',1,this.value)">${MN.map((n,i)=>`<option value=${i+1} ${i+1==jm?'selected':''}>${n}</option>`).join('')}</select><select onchange="sd('${k}',2,this.value)">${o(1,ml(jy,jm),jd)}</select></div>`}
+function sd(k,i,v){const j=d2j(S[k]),a=[j.jy,j.jm,j.jd];a[i]=+v;a[2]=Math.min(a[2],ml(a[0],a[1]));S[k]=j2d(...a);R()}
+const mv=n=>{S.day+=n;R()};
+/* --- actions --- */
+function unsub(cur,d){if(cur.st=='swap'&&cur.sw){const k=key(cur.sw,d),t=S.r[k];if(t){delete t.sub;if(!t.in&&!t.out&&!t.br.length&&t.st=='work')delete S.r[k]}}}
+function st(id,s){if(S.role!='a')return;const d=S.day,cur=eff(find(id),d);if(cur.st=='swap'&&s!='swap')unsub(cur,d);upd(id,d,r=>{r.st=s;if(s!='swap')delete r.sw})}
+function sw(id,z){if(S.role!='a')return;z=+z;const d=S.day;unsub(eff(find(id),d),d);if(z){const zr=clone(eff(find(z),d));if(zr.st=='off')zr.st='work';zr.sub=id;S.r[key(z,d)]=zr}upd(id,d,r=>{r.sw=z})}
+const ed=(id,f,v)=>upd(id,S.day,r=>r[f]=v);
+const ab=id=>upd(id,S.day,r=>r.br.push(['','']));
+const eb=(id,i,j,v)=>upd(id,S.day,r=>r.br[i][j]=v);
+const rb=(id,i)=>upd(id,S.day,r=>r.br.splice(i,1));
+function tg(i){if(S.role!='a')return;const a=S.nw,k=a.indexOf(i);k<0?a.push(i):a.splice(k,1);const n=$('wn')?$('wn').value:'';R();$('wn').value=n}
+function addW(){if(S.role!='a')return;const n=$('wn').value.trim();if(!n)return;S.w.push({id:Date.now(),n,off:[...S.nw],p:S.np||''});S.nw=[];S.np='';save();R()}
+function tgw(id,i){if(S.role!='a')return;const w=find(id),k=w.off.indexOf(i);k<0?w.off.push(i):w.off.splice(k,1);save();R()}
+function delW(id){if(S.role!='a')return;S.cf=id;$('mb').innerHTML=`<b>آیا مطمئن هستید؟</b><p>«${nm(id)}» و همه سوابق او برای همیشه حذف می‌شود.</p><div class=nv><button class="del on" onclick="doDel()">بله، حذف شود</button><button onclick="mclose()">انصراف</button></div>`;$('md').style.display='flex';return}function doDel(){const id=S.cf;mclose();S.w=S.w.filter(x=>x.id!=id);Object.keys(S.r).forEach(k=>{if(k.startsWith(id+'|'))delete S.r[k]});save();R()}
+/* --- avatars --- */
+const av=(w,e)=>{const c=w.p?`<img src="${w.p}">`:esc(((w.n||'').trim()[0])||'?');return e?`<label class=av>${c}<input type=file accept="image/*" onchange="ph(${w.id},this)"></label>`:`<span class=av>${c}</span>`};
+function ph(id,inp){if(S.role!='a')return;const f=inp.files[0];if(!f)return;const fr=new FileReader();
+fr.onerror=()=>toast('خواندن عکس ممکن نشد');
+fr.onload=()=>{const im=new Image();im.onload=()=>{const z=192,c=document.createElement('canvas');c.width=c.height=z;const m=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,z,z);const d=c.toDataURL('image/jpeg',.82);if(id){find(id).p=d;save()}else S.np=d;R()};im.onerror=()=>toast('این فایل، عکس معتبر نیست');im.src=fr.result};
+fr.readAsDataURL(f)}
+function edN(id){if(S.role!='a')return;S.cf=id;$('mb').innerHTML=`<b>ویرایش نام</b><input type=text id=en value="${esc(find(id).n)}" style="margin:10px 0"><div class=nv><button class=on onclick="svN()">ذخیره</button><button onclick="mclose()">انصراف</button></div>`;$('md').style.display='flex'}
+function svN(){const n=$('en').value.trim();if(!n)return;const w=find(S.cf);if(w){w.n=n;save()}mclose();R()}
+const mclose=()=>{$('md').style.display='none';S.cf=null};
+/* --- auto backup --- */
+let CF={};try{CF=JSON.parse(localStorage.getItem('att_cf')||'{}')}catch(e){}
+const cfSave=()=>{try{localStorage.setItem('att_cf',JSON.stringify(CF))}catch(e){}};
+const CP=()=>{const P=window.Capacitor&&window.Capacitor.Plugins;return P&&P.Filesystem?P:null};
+const bkName=()=>{const n=new Date(),o=d2j(g2d(n.getFullYear(),n.getMonth()+1,n.getDate())),z=x=>String(x).padStart(2,'0');return `backup-${o.jy}-${z(o.jm)}-${z(o.jd)}_${z(n.getHours())}-${z(n.getMinutes())}.json`};
+const WB=()=>{try{return JSON.parse(localStorage.getItem('att_bk')||'{}')}catch(e){return{}}};
+const BK={
+async list(){const P=CP();if(P){try{const r=await P.Filesystem.readdir({path:'backups',directory:'EXTERNAL'});return r.files.map(f=>f.name||f).filter(n=>/\.json$/.test(n)).sort().reverse()}catch(e){return[]}}return Object.keys(WB()).sort().reverse()},
+async put(n,t){const P=CP();if(P){await P.Filesystem.writeFile({path:'backups/'+n,data:t,directory:'EXTERNAL',encoding:'utf8',recursive:true});return}const o=WB();o[n]=t;localStorage.setItem('att_bk',JSON.stringify(o))},
+async get(n){const P=CP();if(P)return(await P.Filesystem.readFile({path:'backups/'+n,directory:'EXTERNAL',encoding:'utf8'})).data;return WB()[n]},
+async del(n){const P=CP();if(P){await P.Filesystem.deleteFile({path:'backups/'+n,directory:'EXTERNAL'});return}const o=WB();delete o[n];localStorage.setItem('att_bk',JSON.stringify(o))}};
+async function autoBk(f){try{const n=bkName();await BK.put(n,dump());CF.last=Date.now();cfSave();for(const x of (await BK.list()).slice(CP()?10:3))await BK.del(x);S.bl=await BK.list();if(S.role&&S.tab=='b')R();if(f===1)toast('بکاپ ذخیره شد: '+n)}catch(e){if(f===1)toast('بکاپ انجام نشد: '+(e.message||e))}}
+function chk(){const d=CF.iv||0;if(d&&Date.now()-(CF.last||0)>=d*864e5)autoBk()}
+setInterval(chk,6e5);document.addEventListener('visibilitychange',()=>{if(!document.hidden)chk()});
+function setIv(v){if(S.role!='a')return;CF.iv=+v;cfSave();chk();R()}
+async function bsh(n){try{const P=CP(),t=await BK.get(n);if(P&&P.Share){const x=await P.Filesystem.getUri({path:'backups/'+n,directory:'EXTERNAL'});await P.Share.share({title:n,url:x.uri});return}
+const file=new File([t],n,{type:'application/json'});if(navigator.canShare&&navigator.canShare({files:[file]}))await navigator.share({files:[file]});else{const a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=n;a.click()}}catch(e){toast('ارسال ممکن نشد: '+(e.message||e))}}
+async function brs(n){try{pr(await BK.get(n))}catch(e){toast('خواندن بکاپ ممکن نشد')}}
+const vAuto=()=>{const o=(v,l)=>`<option value=${v} ${(CF.iv||0)==v?'selected':''}>${l}</option>`,t=CF.last&&new Date(CF.last),z=x=>String(x).padStart(2,'0');
+return `<div class=card><label>دوره بکاپ خودکار<select onchange="setIv(this.value)">${o(0,'خاموش')}${o(1,'هر ۱ روز')}${o(3,'هر ۳ روز')}${o(7,'هر ۱ هفته')}</select></label>
+<div class=m style="margin-top:6px">${t?'آخرین بکاپ: '+fmt(g2d(t.getFullYear(),t.getMonth()+1,t.getDate()))+' ساعت '+fa(z(t.getHours())+':'+z(t.getMinutes())):'هنوز بکاپی گرفته نشده است.'}</div>
+<div class=m>بکاپ خودکار فقط وقتی اجرا می‌شود که برنامه باز باشد یا باز شود؛ برنامه بسته در پس‌زمینه کار نمی‌کند. فایل‌ها در حافظه خود برنامه (حداکثر ۱۰ نسخه آخر) ذخیره می‌شوند و با «ارسال» می‌توانید آن‌ها را به Drive یا تلگرام بفرستید.</div>
+<button class=ghost onclick="autoBk(1)">گرفتن بکاپ همین حالا</button>${(S.bl||[]).map(n=>`<div class=ln style="align-items:center;padding:6px 0"><span dir=ltr style="font-size:12px">${n}</span><span><button onclick="bsh('${n}')">ارسال</button> <button onclick="brs('${n}')">بازیابی</button></span></div>`).join('')}</div>`};
+/* --- PDF (canvas -> JPEG pages -> minimal PDF writer) --- */
+const toast=t=>{const e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>e.style.display='none',3500)};
+function mkpdf(jp,W,H){const en=new TextEncoder(),parts=[],off=[];let len=0;
+const push=x=>{const b=typeof x=='string'?en.encode(x):x;parts.push(b);len+=b.length};
+const obj=(n,f)=>{off[n]=len;push(n+' 0 obj\n');f();push('\nendobj\n')};
+const N=jp.length,PW=595,PH=842;push('%PDF-1.4\n');
+obj(1,()=>push('<< /Type /Catalog /Pages 2 0 R >>'));
+obj(2,()=>push('<< /Type /Pages /Count '+N+' /Kids ['+jp.map((_,i)=>(3+3*i)+' 0 R').join(' ')+'] >>'));
+jp.forEach((j,i)=>{const p=3+3*i,c=`q ${PW} 0 0 ${PH} 0 0 cm /Im0 Do Q`;
+obj(p,()=>push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /XObject << /Im0 ${p+2} 0 R >> >> /Contents ${p+1} 0 R >>`));
+obj(p+1,()=>push(`<< /Length ${c.length} >>\nstream\n${c}\nendstream`));
+obj(p+2,()=>{push(`<< /Type /XObject /Subtype /Image /Width ${W} /Height ${H} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${j.length} >>\nstream\n`);push(j);push('\nendstream')})});
+const xo=len,tot=3*N+3;push('xref\n0 '+tot+'\n0000000000 65535 f \n');
+for(let n=1;n<tot;n++)push(String(off[n]).padStart(10,'0')+' 00000 n \n');
+push(`trailer\n<< /Size ${tot} /Root 1 0 R >>\nstartxref\n${xo}\n%%EOF`);return new Blob(parts,{type:'application/pdf'})}
+async function savePdf(blob,f){const P=window.Capacitor&&window.Capacitor.Plugins;
+if(P&&P.Filesystem&&P.Share){const b=await new Promise(r=>{const x=new FileReader();x.onload=()=>r(x.result.split(',')[1]);x.readAsDataURL(blob)});const x=await P.Filesystem.writeFile({path:f,data:b,directory:'CACHE'});await P.Share.share({title:'گزارش کارکرد',url:x.uri});return}
+const file=new File([blob],f,{type:'application/pdf'});
+if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file]});return}
+const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=f;a.click()}
+async function pdf(id){const w=find(id);if(!w)return;toast('در حال ساخت PDF ...');
+try{await document.fonts.load('700 30px Vazirmatn')}catch(e){}
+try{
+const W=1240,H=1754,RH=40,F='Vazirmatn,Tahoma,sans-serif',rn=x=>find(x)?find(x).n:'—',days=Math.min(S.to-S.from+1,400),tt=x=>x?fa(x):'—';
+let rows=[],tot=0,wk=0,of=0,sp=0,sb=0,lv=0;
+for(let d=S.from;d<S.from+days;d++){const r=eff(w,d),c=calc(r),k=r.st=='work';let s;
+if(r.st=='swap'){s='تعویض شیفت با '+(r.sw?rn(r.sw):'—');sp++}else if(r.st=='off'){s='تعطیل';of++}else if(r.st=='leave'){s='مرخصی روزانه';lv++}else{s=c.n?'حاضر':'ثبت نشده';if(c.n)wk++;if(r.sub){s+=' (جایگزین '+rn(r.sub)+')';sb++}}
+tot+=c.n;rows.push({t:[fmt(d),s,k?tt(r.in):'—',k?tt(r.out):'—',tt(c.b),tt(c.n)],st:r.st})}
+const cap=top=>Math.floor((H-100-top-RH)/RH),c1=cap(350),c2=cap(100),N=rows.length<=c1?1:1+Math.ceil((rows.length-c1)/c2);
+const cw=[300,300,100,100,150,150],hd=['تاریخ','وضعیت','ورود','خروج','مرخصی (دقیقه)','کار خالص (دقیقه)'],jp=[];
+let i=0;
+for(let pg=0;pg<N;pg++){const top=pg?100:350,cv=document.createElement('canvas');cv.width=W;cv.height=H;const c=cv.getContext('2d');c.direction='rtl';c.textBaseline='middle';
+c.fillStyle='#fff';c.fillRect(0,0,W,H);
+const T=(t,xr,y,wd,al,fs,col,wt)=>{let z=fs;c.font=`${wt||400} ${z}px ${F}`;while(c.measureText(t).width>wd-16&&z>13){z--;c.font=`${wt||400} ${z}px ${F}`}c.fillStyle=col;c.textAlign=al;c.fillText(t,al=='right'?xr-10:xr-wd/2,y)};
+if(!pg){c.fillStyle='#0f766e';c.fillRect(0,0,W,175);
+T('گزارش کارکرد: '+w.n,1170,62,1100,'right',42,'#fff',700);
+T('از تاریخ '+fmt(S.from)+' تا تاریخ '+fmt(S.to),1170,126,1100,'right',32,'#fff');
+c.fillStyle='#e6f4f1';c.beginPath();c.roundRect(70,200,1100,125,16);c.fill();
+T('مجموع کارکرد: '+fa(tot)+' دقیقه = '+hm(tot),1170,235,1100,'right',32,'#0b4f49',700);
+T(`روز حاضر: ${fa(wk)}،  تعطیل: ${fa(of)}،  مرخصی: ${fa(lv)}،  تعویض شیفت: ${fa(sp)}،  جایگزین: ${fa(sb)}`,1170,290,1100,'right',25,'#16222b')}
+let x=1170;c.fillStyle='#0f766e';c.fillRect(70,top,1100,RH);
+hd.forEach((h,k)=>{T(h,x,top+RH/2,cw[k],k<2?'right':'center',22,'#fff',700);x-=cw[k]});
+rows.slice(i,i+(pg?c2:c1)).forEach((r,j)=>{const y=top+(j+1)*RH;c.fillStyle=r.st=='swap'?'#fff1cc':r.st=='off'?'#e6eaed':r.st=='leave'?'#e3eefb':j%2?'#f4f7f8':'#fff';c.fillRect(70,y,1100,RH);
+c.strokeStyle='#dfe5e8';c.strokeRect(70,y,1100,RH);let x=1170;r.t.forEach((v,k)=>{T(v,x,y+RH/2,cw[k],k<2?'right':'center',22,'#16222b');x-=cw[k]})});
+i+=pg?c2:c1;
+T(`صفحه ${fa(pg+1)} از ${fa(N)}`,W/2+300,H-45,600,'center',22,'#64748b');
+const b=atob(cv.toDataURL('image/jpeg',.92).split(',')[1]),u=new Uint8Array(b.length);for(let q=0;q<b.length;q++)u[q]=b.charCodeAt(q);jp.push(u)}
+await savePdf(mkpdf(jp,W,H),'attendance-report-'+Date.now()+'.pdf');toast('PDF آماده شد.')
+}catch(e){toast('ساخت یا ذخیره PDF ممکن نشد: '+(e.message||e))}}
+/* --- backup --- */
+const msg=t=>{S.msg=t;R()};
+const dump=()=>JSON.stringify({v:1,w:S.w,r:S.r});
+async function bk(){if(S.role!='a')return;const t=dump(),f=bkName(),P=window.Capacitor&&window.Capacitor.Plugins;
+try{if(P&&P.Filesystem&&P.Share){const x=await P.Filesystem.writeFile({path:f,data:t,directory:'CACHE',encoding:'utf8'});await P.Share.share({title:'پشتیبان حضور و غیاب',url:x.uri});msg('فایل پشتیبان آماده شد؛ مقصد را انتخاب کنید (Drive، تلگرام، فایل‌ها ...).')}
+else{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download=f;a.click();msg('اگر فایل دانلود نشد، از «کپی متن پشتیبان» استفاده کنید.')}}catch(e){msg('خطا: '+(e.message||e))}}
+function cp(){const t=dump();S.bt=t;try{navigator.clipboard.writeText(t).then(()=>msg('متن پشتیبان کپی شد. آن را در یادداشت یا پیام ذخیره کنید.'),()=>msg('کپی خودکار نشد؛ متن زیر را دستی کپی کنید.'))}catch(e){msg('کپی خودکار نشد؛ متن زیر را دستی کپی کنید.')}}
+function pr(t){if(S.role!='a')return;try{const x=JSON.parse(t);if(!Array.isArray(x.w)||!x.r||typeof x.r!='object')throw 0;S.pend=x;S.msg=''}catch(e){S.pend=null;S.msg='فایل یا متن پشتیبان معتبر نیست.'}R()}
+function rf(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>pr(r.result);r.readAsText(f)}
+const rs=()=>pr($('rt').value);
+function okR(){if(S.role!='a')return;S.w=S.pend.w;S.r=S.pend.r;S.pend=null;save();msg('اطلاعات بازیابی شد.')}
+function vBack(){return `<h2>بکاپ خودکار</h2>${vAuto()}<h2>پشتیبان‌گیری دستی</h2><div class=card><div class=m>همه نیروها و سوابق در یک فایل ذخیره می‌شود. پیشنهاد می‌شود هر هفته یک نسخه بگیرید.</div><button class=on style="width:100%;margin-top:8px" onclick="bk()">ذخیره / ارسال فایل پشتیبان</button><button class=ghost onclick="cp()">کپی متن پشتیبان</button>${S.bt?`<textarea rows=3 readonly onfocus="this.select()">${esc(S.bt)}</textarea>`:''}<div class=m style="margin-top:6px">${S.msg||''}</div></div>
+<h2>بازیابی</h2><div class=card>${S.pend?`<div class=note>${fa(S.pend.w.length)} نیرو و ${fa(Object.keys(S.pend.r).length)} رکورد پیدا شد. اطلاعات فعلی با آن جایگزین شود؟</div><div class=nv><button class="del on" onclick="okR()">تایید بازیابی</button><button onclick="S.pend=null;R()">انصراف</button></div>`:`<label>انتخاب فایل پشتیبان<input type=file accept=".json,application/json,text/plain" onchange="rf(this)"></label><label style="margin-top:8px">یا متن پشتیبان را اینجا بچسبانید<textarea id=rt rows=3></textarea></label><button class=ghost onclick="rs()">بازیابی از متن</button>`}</div>`}
+const T=t=>{S.tab=t;R()};
+/* --- views --- */
+function vDay(){
+let h=`<div class=card>${dsel('day')}<div class=nv><button onclick="mv(-1)">→ روز قبل</button><button onclick="S.day=today();R()">امروز</button><button onclick="mv(1)">روز بعد ←</button></div><div class=hd>${fmt(S.day)}</div></div>`;
+if(!S.w.length)return h+`<div class=card>هنوز نیرویی ثبت نشده. از تب «نیروها» اولین نیرو را اضافه کنید.</div>`;
+return h+S.w.map(w=>{const r=eff(w,S.day),c=calc(r),id=w.id;
+return `<div class="card wc"><div class=row><span class=nmw>${av(w)}<b>${esc(w.n)}</b></span><span class=m>${c.n?fa(c.n)+' دقیقه':''}</span></div>
+<div class=seg>${[['work','کار'],['off','تعطیل'],['leave','مرخصی روزانه'],['swap','تعویض شیفت']].map(([k,l])=>`<button class="${r.st==k?'on':''}" onclick="st(${id},'${k}')">${l}</button>`).join('')}</div>
+${r.sub?`<div class=note>امروز جایگزین ${nm(r.sub)} است</div>`:''}
+${r.st=='swap'?`<label>تعویض شیفت با<select onchange="sw(${id},this.value)"><option value=0>انتخاب کنید</option>${S.w.filter(x=>x.id!=id).map(x=>`<option value=${x.id} ${x.id==r.sw?'selected':''}>${esc(x.n)}</option>`).join('')}</select></label>${r.sw?`<div class=note style="margin-top:6px">تعویض شیفت با ${nm(r.sw)}</div>`:''}`:''}
+${r.st=='leave'?`<div class=m>مرخصی روزانه — از مجموع کاری کسر می‌شود.</div>`:''}${r.st=='off'?`<div class=m>روز تعطیل — از مجموع کاری کسر می‌شود.</div>`:''}
+${r.st=='work'?`<div class="g2 two"><label>ساعت ورود<input type=time value="${r.in||''}" onchange="ed(${id},'in',this.value)"></label><label>ساعت خروج<input type=time value="${r.out||''}" onchange="ed(${id},'out',this.value)"></label></div>
+${r.br.map((b,i)=>`<div class=g2><label>شروع مرخصی<input type=time value="${b[0]}" onchange="eb(${id},${i},0,this.value)"></label><label>پایان مرخصی<input type=time value="${b[1]}" onchange="eb(${id},${i},1,this.value)"></label><button class=del onclick="rb(${id},${i})">✕</button></div>`).join('')}
+<button class=ghost onclick="ab(${id})">+ ایست کاری / مرخصی ساعتی</button>
+<div class=tot>کار خالص: ${fa(c.n)} دقیقه = ${hm(c.n)}<small>کل حضور ${fa(c.g)} دقیقه − مرخصی ${fa(c.b)} دقیقه</small></div>`:''}</div>`}).join('')}
+function vWork(){
+const chips=(a,f)=>`<div class=chips>${WD.map((d,i)=>`<button class="${a.includes(i)?'on':''}" onclick="${f(i)}">${d}</button>`).join('')}</div>`;
+return `<h2>افزودن نیروی کار</h2><div class=card><div class=nmw><label class=av>${S.np?`<img src="${S.np}">`:'+'}<input type=file accept="image/*" onchange="ph(0,this)"></label><input type=text id=wn placeholder="نام و نام خانوادگی" style="flex:1"></div><div class=m style="margin-top:8px">روزهای تعطیل هفتگی:</div>${chips(S.nw,i=>`tg(${i})`)}<button class=on style="width:100%" onclick="addW()">افزودن</button></div>
+<h2>فهرست نیروها</h2>`+(S.w.map(w=>`<div class=card><div class=row><span class=nmw>${av(w,1)}<b>${esc(w.n)}</b></span><span><button class=edb onclick="edN(${w.id})">ویرایش</button> <button class=del onclick="delW(${w.id})">حذف</button></span></div><div class=m>روز تعطیل هفتگی:</div>${chips(w.off,i=>`tgw(${w.id},${i})`)}</div>`).join('')||'<div class=card>فهرست خالی است.</div>')}
+function vRep(){
+let h=`<h2>گزارش کارکرد</h2><div class=card><label>از تاریخ</label>${dsel('from')}<label style="margin-top:8px">تا تاریخ</label>${dsel('to')}<div class=nv><button onclick="mon(0)">ماه تاریخ شروع</button></div></div>`;
+if(S.to<S.from)return h+`<div class=card>تاریخ پایان باید بعد از شروع باشد.</div>`;
+let G=0;const days=Math.min(S.to-S.from+1,400);
+const cards=S.w.map(w=>{let tot=0,wk=0,of=0,sp=0,lv=0,ln='';
+for(let d=S.from;d<S.from+days;d++){const r=eff(w,d),c=calc(r);tot+=c.n;
+if(c.n){wk++;ln+=`<div class=ln><span>${fmt(d)}${r.sub?` (جایگزین ${nm(r.sub)})`:''}</span><span>${fa(c.n)} دقیقه</span></div>`}
+else if(r.st=='swap'){sp++;ln+=`<div class=ln><span>${fmt(d)}</span><span>تعویض با ${r.sw?nm(r.sw):'—'}</span></div>`}
+else if(r.st=='off')of++;else if(r.st=='leave'){lv++;ln+=`<div class=ln><span>${fmt(d)}</span><span>مرخصی روزانه</span></div>`}}
+G+=tot;
+return `<div class=card><div class=row><span class=nmw>${av(w)}<b>${esc(w.n)}</b></span><span class=m>${fa(wk)} روز کاری · ${fa(of)} تعطیل · ${fa(lv)} مرخصی · ${fa(sp)} تعویض</span></div><div class=big>${fa(tot)} دقیقه</div><div>= ${hm(tot)}</div><button class=ghost onclick="pdf(${w.id})">دریافت PDF این نیرو</button><details><summary>جزئیات روزانه</summary>${ln||'<div class=m>موردی ثبت نشده</div>'}</details></div>`}).join('');
+return h+`<div class=card><span class=m>مجموع همه نیروها</span><div class=big>${fa(G)} دقیقه</div><div>= ${hm(G)}</div></div>`+cards}
+function mon(){const o=d2j(S.from);S.from=j2d(o.jy,o.jm,1);S.to=j2d(o.jy,o.jm,ml(o.jy,o.jm));R()}
+async function sha(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+async function login(){const u=$('lu').value.trim(),p=$('lp').value;
+if(!(window.crypto&&crypto.subtle)){S.err='ورود در این مرورگر پشتیبانی نمی‌شود.';return R()}
+const hs=await sha(u+':'+p),r=USERS[hs];if(r){S.role=r;S.err='';S.tab='d';try{localStorage.setItem('att_sess',hs)}catch(e){}}else S.err='نام کاربری یا رمز عبور اشتباه است.';R();if(!S.role&&$('lu'))$('lu').value=u}
+const out=()=>{try{localStorage.removeItem('att_sess')}catch(e){}S.role=null;S.tab='d';S.pend=null;S.bt='';S.msg='';R()};
+const vLogin=()=>{const tk=Array.from({length:60},(_,i)=>{const M=i%5==0;return `<line x1="100" x2="100" y1="${M?14:18}" y2="${M?27:22}" transform="rotate(${i*6} 100 100)" stroke="#fff" stroke-width="${M?3:1.5}" stroke-linecap="round" opacity="${M?.9:.35}" />`}).join('');
+const ic=(d)=>`<svg viewBox="0 0 24 24" stroke-linecap=round stroke-linejoin=round>${d}</svg>`;
+return `<div class=lgp><div class=hero><svg class=dial viewBox="0 0 200 200"><circle cx=100 cy=100 r=92 fill="#fff" fill-opacity=.06 stroke="#fff" stroke-opacity=.25 stroke-width=2 />${tk}<line x1=100 y1=100 x2=100 y2=60 transform="rotate(305 100 100)" stroke="#fff" stroke-width=5 stroke-linecap=round /><line x1=100 y1=100 x2=100 y2=42 transform="rotate(60 100 100)" stroke="#fff" stroke-width=4 stroke-linecap=round /><line class=sec x1=100 y1=114 x2=100 y2=32 stroke="#f2b84b" stroke-width=2 stroke-linecap=round /><circle cx=100 cy=100 r=6 fill="#f2b84b" /></svg><h1 style="letter-spacing:.5px">Attendance</h1><p>ثبت ورود، خروج و کارکرد نیروها</p></div>
+<div class=sheet><h3>ورود به حساب</h3><div class=m>نام کاربری و رمز عبور خود را وارد کنید.</div>
+<div class=fld>${ic('<circle cx=12 cy=8 r=4 /><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" />')}<input type=text id=lu placeholder="نام کاربری" autocomplete=username autocapitalize=none spellcheck=false></div>
+<div class=fld>${ic('<rect x=4 y=11 width=16 height=10 rx=2 /><path d="M8 11V8a4 4 0 0 1 8 0v3" />')}<input type=password id=lp placeholder="رمز عبور" autocomplete=current-password onkeydown="if(event.key=='Enter')login()"><button type=button class=eye onclick="eye(this)">نمایش</button></div>
+${S.err?`<div class=err>${S.err}</div>`:''}<button class=go onclick="login()">ورود</button><div class=ft>برای دریافت دسترسی با مدیر برنامه تماس بگیرید.</div></div></div>`};
+const eye=b=>{const i=$('lp');i.type=i.type=='password'?'text':'password';b.textContent=i.type=='password'?'نمایش':'پنهان'};
+function lock(A){A.querySelectorAll('input[type=file]').forEach(e=>e.disabled=true);A.querySelectorAll('.wc input,.wc select,.wc .seg button').forEach(e=>e.disabled=true);A.querySelectorAll('.wc .ghost,.wc .del').forEach(e=>e.remove());
+if(S.tab=='w'){A.querySelectorAll('.del,.edb').forEach(e=>e.remove());A.querySelectorAll('.chips button').forEach(e=>e.disabled=true);[...A.children].slice(0,2).forEach(e=>e.remove())}}
+function R(){const y=scrollY,wn=$('wn')&&$('wn').value,A=$('app'),v=S.role=='v';
+document.querySelector('nav').style.display=S.role?'flex':'none';document.body.classList.toggle('lg',!S.role);
+$('top').innerHTML=S.role?`<div class=row style="padding:2px 4px 8px"><span class=m>${v?'حالت مشاهده (فقط خواندنی)':'مدیر'}</span><button onclick="out()">خروج</button></div>`:'';
+if(!S.role){A.innerHTML=vLogin();return}
+if(v&&S.tab=='b')S.tab='d';
+$('n3').style.display=v?'none':'';
+A.innerHTML=S.tab=='d'?vDay():S.tab=='w'?vWork():S.tab=='b'?vBack():vRep();
+if(v)lock(A);
+['d','w','r','b'].forEach((t,i)=>$('n'+i).className=S.tab==t?'on':'');
+if(wn&&$('wn'))$('wn').value=wn;scrollTo(0,y)}
+R();chk();BK.list().then(l=>{S.bl=l;if(S.role&&S.tab=='b')R()});
+</script></body></html>
